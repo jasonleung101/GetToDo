@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todo_get/controller/todo_conntroller.dart';
 import '../utils/common_dependencies.dart';
 
 class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({Key? key}) : super(key: key);
+  AddTaskPage({Key? key}) : super(key: key);
+
+  final ToDoController _toDoController = Get.find();
+  final TextEditingController _taskNameEditingController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,10 @@ class AddTaskPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // Get.toNamed(TodoRoute.addTaskPage);
+              if (!(_taskNameEditingController.text.isBlank ?? true)) {
+                _toDoController.addNewTask(_taskNameEditingController.text);
+              }
+              Get.back();
             },
             icon: const Icon(
               Icons.done,
@@ -37,6 +45,19 @@ class AddTaskPage extends StatelessWidget {
           width: 1.sw,
           height: 1.sh,
           color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.all(12.h),
+            child: Column(
+              children: [
+                TextField(
+                  controller: _taskNameEditingController,
+                  decoration: const InputDecoration(
+                    label: Text('Task'),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

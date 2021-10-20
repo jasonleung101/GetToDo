@@ -3,7 +3,9 @@ import 'utils/common_dependencies.dart';
 import 'package:todo_get/utils/route.dart';
 import 'package:todo_get/views/landing_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configEnvironmentAndDependencies();
   runApp(const MyApp());
 }
 
